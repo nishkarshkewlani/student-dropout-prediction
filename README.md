@@ -1,4 +1,4 @@
-# student-dropout-prediction
+
 # Student Dropout Prediction System
 
 This is an end-to-end Machine Learning project that predicts whether a student is at risk of dropping out based on academic and personal attributes.  
