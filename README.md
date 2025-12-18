@@ -62,20 +62,21 @@ pip install -r requirements.txt
 python backend/app.py
 Then open:
 http://localhost:5000
+```
 
-**Sample Output**
+# Sample Output
 
 ✅ Low Risk of Dropout
 ⚠️ High Risk of Dropout
 
-**Future Improvements**
+# Future Improvements
 
 Add database support
 Improve feature engineering
 Deploy on cloud (AWS / Render)
 Add authentication for institutions
 
-**Author**
+# Author
 
 Nishkarsh Kewlani
 B. Tech (CSE in Data Science)
