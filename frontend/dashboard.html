@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analytics Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<h2>Student Dropout Analytics</h2>
+<canvas id="chart"></canvas>
+
+<script>
+fetch("http://127.0.0.1:5000/analytics")
+.then(res => res.json())
+.then(data => {
+    new Chart(document.getElementById("chart"), {
+        type: "pie",
+        data: {
+            labels: ["Dropout", "Safe"],
+            datasets: [{
+                data: [data.dropout, data.safe]
+            }]
+        }
+    });
+});
+</script>
+
+</body>
+</html>
