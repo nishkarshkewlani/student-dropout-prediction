@@ -2,31 +2,35 @@ from flask import Flask, request, jsonify
 import pickle
 import numpy as np
 import pandas as pd
+import joblib
+import os
 
 app = Flask(__name__)
 
-# Load trained model
-with open("../ml/student_model.pkl", "rb") as f:
-    model, scaler, feature_names = pickle.load(f)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+MODEL_PATH = os.path.join(BASE_DIR, "..", "ml", "student_model.pkl")
+
+# Load model safely
+model, scaler, feature_names = joblib.load(MODEL_PATH)
 
 @app.route("/predict", methods=["POST"])
 def predict():
-    input_data = request.json
+    data = request.get_json()
 
-    features = [input_data[feature] for feature in feature_names]
-    features = np.array(features).reshape(1, -1)
+    input_data = [data.get(feat, 0) for feat in feature_names]
+    input_scaled = scaler.transform([input_data])
 
-    scaled = scaler.transform(features)
-    prediction = model.predict(scaled)[0]
-    probability = model.predict_proba(scaled)[0][1]
-
-    risk = "High" if probability > 0.7 else "Medium" if probability > 0.4 else "Low"
+    prediction = int(model.predict(input_scaled)[0])
+    probability = float(model.predict_proba(input_scaled)[0][1])
 
     return jsonify({
-        "dropout_prediction": int(prediction),
-        "probability": round(probability, 2),
-        "risk_level": risk
+        "dropout_risk": prediction,
+        "probability": probability
     })
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+
 
 @app.route("/analytics", methods=["GET"])
 def analytics():
