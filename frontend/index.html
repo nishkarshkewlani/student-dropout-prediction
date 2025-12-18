@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dropout Predictor</title>
+</head>
+<body>
+
+<h2>Student Dropout Risk Prediction</h2>
+
+<input id="age" placeholder="Age"><br>
+<input id="studytime" placeholder="Study Time (1-4)"><br>
+<input id="failures" placeholder="Failures"><br>
+<input id="absences" placeholder="Absences"><br>
+
+<select id="schoolsup">
+  <option value="1">School Support: Yes</option>
+  <option value="0">School Support: No</option>
+</select><br>
+
+<select id="famsup">
+  <option value="1">Family Support: Yes</option>
+  <option value="0">Family Support: No</option>
+</select><br>
+
+<button onclick="predict()">Predict</button>
+
+<p id="result"></p>
+
+<script src="script.js"></script>
+</body>
+</html>
